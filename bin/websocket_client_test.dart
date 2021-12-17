@@ -2,26 +2,30 @@ import 'dart:io' show WebSocket;
 import 'dart:convert' show json;
 import 'dart:async' show Timer;
 
-main() {
-  WebSocket.connect('ws://0.0.0.0:8000').then((WebSocket ws) {
-    // our websocket server runs on ws://0.0.0.0:8000
+main() async {
+  int _connections = 10000;
+
+  for (var i = 0; i < _connections; i++) {
+    await _connect(i);
+  }
+
+  _connect(_connections + 1);
+}
+
+Future<void> _connect(int i) async {
+  await WebSocket.connect('ws://0.0.0.0:8080/send/$i').then((WebSocket ws) {
     if (ws.readyState == WebSocket.open) {
-      // as soon as websocket is connected and ready for use, we can start talking to other end
-      ws.add(json.encode({
-        'data': 'from client at ${DateTime.now().toString()}',
-      })); // this is the JSON data format to be transmitted
+      // int _clientID = DateTime.now().millisecondsSinceEpoch;
+      // String _message = 'Client ($_clientID): Hello, server!';
+      // ws.add(_message);
       ws.listen(
-        // gives a StreamSubscription
         (data) {
-          print(
-              '\t\t -- ${Map<String, String>.from(json.decode(data))}'); // listen for incoming data and show when it arrives
-          Timer(Duration(seconds: 1), () {
-            if (ws.readyState == WebSocket.open) {
-              ws.add(json.encode({
-                'data': 'from client at ${DateTime.now().toString()}',
-              }));
-            }
-          });
+          print(data);
+          // Timer(Duration(seconds: 3), () {
+          //   if (ws.readyState == WebSocket.open) {
+          //     ws.add(_message);
+          //   }
+          // });
         },
         onDone: () => print('[+]Done :)'),
         onError: (err) => print('[!]Error -- ${err.toString()}'),
@@ -30,6 +34,5 @@ main() {
     } else {
       print('[!]Connection Denied');
     }
-    // in case, if serer is not running now
   }, onError: (err) => print('[!]Error -- ${err.toString()}'));
 }
