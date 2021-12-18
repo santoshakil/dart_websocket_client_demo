@@ -3,17 +3,24 @@ import 'dart:convert' show json;
 import 'dart:async' show Timer;
 
 main() async {
-  int _connections = 10000;
+  // int _connections = 1000;
 
-  for (var i = 0; i < _connections; i++) {
-    await _connect(i);
-  }
+  // for (var i = 0; i < _connections; i++) {
+  //   await _connect(i);
+  // }
 
-  _connect(_connections + 1);
+  await _connect(1);
 }
 
 Future<void> _connect(int i) async {
-  await WebSocket.connect('ws://0.0.0.0:8080/send/$i').then((WebSocket ws) {
+  await WebSocket.connect(
+    'ws://0.0.0.0:8080/getNotificaion',
+    headers: {
+      'Authorization':
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYzOTgyNzc2Mjg5MSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTYzOTgyNzc2Mn0.7ZNuyFjHw7HQvnT6s0tVIrEdCO0XcTAZtcJLut99QkY',
+      'email': 'test@gmail.com',
+    },
+  ).then((WebSocket ws) {
     if (ws.readyState == WebSocket.open) {
       // int _clientID = DateTime.now().millisecondsSinceEpoch;
       // String _message = 'Client ($_clientID): Hello, server!';
