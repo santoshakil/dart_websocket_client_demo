@@ -2,19 +2,11 @@ import 'dart:io' show WebSocket;
 import 'dart:convert' show json;
 import 'dart:async' show Timer;
 
-main() async {
-  // int _connections = 1000;
+main() async => await _connect();
 
-  // for (var i = 0; i < _connections; i++) {
-  //   await _connect(i);
-  // }
-
-  await _connect(1);
-}
-
-Future<void> _connect(int i) async {
+Future<void> _connect() async {
   await WebSocket.connect(
-    'ws://0.0.0.0:8080/getNotificaion',
+    'ws://192.168.1.200:8080/getNotificaion',
     headers: {
       'Authorization':
           'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYzOTgyNzc2Mjg5MSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTYzOTgyNzc2Mn0.7ZNuyFjHw7HQvnT6s0tVIrEdCO0XcTAZtcJLut99QkY',
