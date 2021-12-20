@@ -9,8 +9,8 @@ Future<void> _connect() async {
     'ws://192.168.1.200:8080/getNotificaion',
     headers: {
       'Authorization':
-          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTYzOTgyNzc2Mjg5MSwiZW1haWwiOiJ0ZXN0QGdtYWlsLmNvbSIsImlhdCI6MTYzOTgyNzc2Mn0.7ZNuyFjHw7HQvnT6s0tVIrEdCO0XcTAZtcJLut99QkY',
-      'email': 'test@gmail.com',
+          'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MTY0MDAwNDE2MjAwNSwiZW1haWwiOiJ0ZXN0MkBnbWFpbC5jb20iLCJpYXQiOjE2NDAwMDQxNjJ9.MkM4cJ8Ay3OgNGoZzZX-8EGkt1SV-ZkZC5LJlLwWrJc',
+      'email': 'test2@gmail.com',
     },
   ).then((WebSocket ws) {
     if (ws.readyState == WebSocket.open) {
